@@ -103,30 +103,18 @@ using namespace std;
     void CircularInt::operator+(CircularInt a){   
     }
 
+    CircularInt& CircularInt::operator++(int){
+        cur++;
+        return *this;
+    }
+
     void CircularInt::operator+(int a){   
-    }
-
-    CircularInt& CircularInt::operator-(CircularInt a){
-        return *this;
-    }
-
-    CircularInt& CircularInt::operator-(int a){
-        return *this;
     }
         
     void CircularInt::operator*(int a){            
     }
 
     void CircularInt::operator/(int a){            
-    }
-
-    CircularInt& CircularInt::operator++(int){
-        cur++;
-        return *this;
-    }
-        
-    CircularInt& CircularInt::operator--(int){    
-        return *this;
     }
         
     CircularInt::~CircularInt(){};
