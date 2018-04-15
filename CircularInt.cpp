@@ -123,7 +123,7 @@ using namespace std;
         CircularInt& CircularInt::operator++(int){
             cur++;
             return *this;
-        }
+        }//
         
         // CircularInt& CircularInt::operator--(int){    
         //     return *this;
