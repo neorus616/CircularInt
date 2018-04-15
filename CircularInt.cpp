@@ -110,9 +110,9 @@ using namespace std;
             return *this;
         }
 
-        CircularInt& CircularInt::operator-(int a){
-            return *this;
-        }
+        // CircularInt& CircularInt::operator-(int a){
+        //     return *this;
+        // }
         
         void CircularInt::operator*(int a){            
         }
@@ -125,8 +125,8 @@ using namespace std;
             return *this;
         }
         
-        CircularInt& CircularInt::operator--(int){    
-            return *this;
-        }
+        // CircularInt& CircularInt::operator--(int){    
+        //     return *this;
+        // }
         
         CircularInt::~CircularInt(){};
