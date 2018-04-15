@@ -2,14 +2,14 @@
 #include <iostream>
 using namespace std;
 
-
 class CircularInt{
     private:
        
     public:
-     int max;
+        int max;
         int min;
         int cur;
+        
         CircularInt(int, int);
         CircularInt& operator =(CircularInt);
         CircularInt& operator =(int);
@@ -32,5 +32,6 @@ class CircularInt{
         void operator--(int);
         ~CircularInt();
 };
+
 std::ostream& operator<<(ostream& , const CircularInt&);
-        std::istream& operator>>(istream & , CircularInt&);
+std::istream& operator>>(istream & , CircularInt&);
