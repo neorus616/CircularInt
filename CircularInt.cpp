@@ -2,22 +2,21 @@
 #include "CircularInt.hpp"
 using namespace std;
 
-    CircularInt::CircularInt(int a, int b){
-
+    CircularInt::CircularInt(int min, int max){
         if(max<0 || max < min || min<0){
             cout << "Wrong values entered, defining default values 1-12";
-            max=12;
-            min=1;
+            this->max=12;
+            this->min=1;
             cur=1;
         } 
         else {
-            max = b;
-            min = a;
+            this->max = max;
+            this->min = min;
             cur = min;
         }
     }
         
-    CircularInt& CircularInt::operator=(const CircularInt cp){
+    CircularInt& CircularInt::operator= (const CircularInt& cp){
         this->max = cp.max;
         this->min = cp.min;
         this->cur = cp.cur;
@@ -29,7 +28,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator+=(const CircularInt add){
+    CircularInt& CircularInt::operator+=(const CircularInt& add){
         cur += add.cur;
         cur = cur % max;
         if(cur < min)
@@ -45,7 +44,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator-=(const CircularInt sub){
+    CircularInt& CircularInt::operator-=(const CircularInt& sub){
         cur -= sub.cur;
         cur = cur % max;
         if(cur < min)
@@ -61,7 +60,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator*=(const CircularInt mul){
+    CircularInt& CircularInt::operator*=(const CircularInt& mul){
         cur *= mul.cur;
         cur = cur % max;
         if(cur < min)
@@ -77,7 +76,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator/=(const CircularInt div){
+    CircularInt& CircularInt::operator/=(const CircularInt& div){
         cur /= div.cur;
         cur = cur % max;
         if(cur < min)
@@ -97,31 +96,33 @@ using namespace std;
         return os << circ.cur;
     }
     
-    std::istream& operator>>(istream & is, const CircularInt& circ){     
+    //std::istream& operator>>(istream & is, const CircularInt& circ){     
+    //}
+
+    //void CircularInt::operator+(CircularInt a){   
+    //}
+
+    CircularInt operator - (int x, CircularInt const & obj){
+        CircularInt res {obj.min, obj.max};
+        res.cur = (obj.cur + x) % obj.max;
+        return res;
     }
 
-    void CircularInt::operator+(CircularInt a){   
-    }
-
-    CircularInt& CircularInt::operator++(int){
-        cur++;
+    CircularInt& CircularInt::operator-(){
+        cur = (max - cur) % max;
         return *this;
     }
-
-        // CircularInt& CircularInt::operator-(int a){
-        //     return *this;
-        // }
         
-    void CircularInt::operator*(int a){            
-    }
+    //void CircularInt::operator*(int a){            
+    //}
 
         CircularInt& CircularInt::operator++(int){
             cur++;
             return *this;
         }//
         
-        // CircularInt& CircularInt::operator--(int){    
-        //     return *this;
-        // }
+    // CircularInt& CircularInt::operator--(int){    
+    //     return *this;
+    // }
         
     CircularInt::~CircularInt(){};

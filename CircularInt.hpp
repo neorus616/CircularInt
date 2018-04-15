@@ -11,25 +11,26 @@ class CircularInt{
         int cur;
         
         CircularInt(int, int);
-        CircularInt& operator =(CircularInt);
+        CircularInt& operator =(CircularInt const &);
         CircularInt& operator =(int);
-        CircularInt& operator+=(CircularInt);
+        CircularInt& operator+=(CircularInt const &);
         CircularInt& operator+=(int);
-        CircularInt& operator-=(CircularInt);
+        CircularInt& operator-=(CircularInt const &);
         CircularInt& operator-=(int);
-        CircularInt& operator*=(CircularInt);
+        CircularInt& operator*=(CircularInt const &);
         CircularInt& operator*=(int);
-        CircularInt& operator/=(CircularInt);
+        CircularInt& operator/=(CircularInt const &);
         CircularInt& operator/=(int);
+        friend CircularInt operator - (int, CircularInt const &);
         
-        void operator+(CircularInt);
-        void operator+(int);
-        CircularInt& operator-(CircularInt);
-        CircularInt& operator-(int);
-        void operator*(int);
-        void operator/(int);
+        //void operator+(CircularInt);
+        //void operator+(int);
+        //int operator- (int);
+        CircularInt& operator- ();
+        //void operator*(int);
+        //void operator/(int);
         CircularInt& operator++(int);
-        void operator--(int);
+        //void operator--(int);
         ~CircularInt();
 };
 
