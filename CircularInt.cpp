@@ -92,7 +92,7 @@ using namespace std;
         return *this;
     }
         
-    std::ostream& operator<<(ostream& os, const CircularInt& circ){
+    std::ostream& operator<<(ostream& os, CircularInt const & circ){
         return os << circ.cur;
     }
     
@@ -104,7 +104,14 @@ using namespace std;
 
     CircularInt operator - (int x, CircularInt const & obj){
         CircularInt res {obj.min, obj.max};
-        res.cur = (obj.cur + x) % obj.max;
+        res.cur = x;
+        res -= obj;
+        return res;
+    }
+
+    CircularInt operator + (CircularInt const & a, CircularInt const & b){
+        CircularInt res {a.min, a.max};
+        res.cur = (a.cur + b.cur) % a.max;
         return res;
     }
 

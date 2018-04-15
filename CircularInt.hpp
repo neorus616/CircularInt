@@ -4,12 +4,11 @@ using namespace std;
 
 class CircularInt{
     private:
-       
-    public:
         int max;
         int min;
         int cur;
-        
+       
+    public:
         CircularInt(int, int);
         CircularInt& operator =(CircularInt const &);
         CircularInt& operator =(int);
@@ -22,6 +21,9 @@ class CircularInt{
         CircularInt& operator/=(CircularInt const &);
         CircularInt& operator/=(int);
         friend CircularInt operator - (int, CircularInt const &);
+        friend CircularInt operator + (CircularInt const &, CircularInt const &);
+        friend ostream& operator<<(ostream &, CircularInt const &);
+        friend istream& operator>>(istream & ,CircularInt const &);
         
         //void operator+(CircularInt);
         //void operator+(int);
@@ -34,5 +36,3 @@ class CircularInt{
         ~CircularInt();
 };
 
-std::ostream& operator<<(ostream& , const CircularInt&);
-std::istream& operator>>(istream & , CircularInt&);
