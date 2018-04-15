@@ -3,111 +3,93 @@
 using namespace std;
 
     CircularInt::CircularInt(int a, int b){
-        max = b;
-        min = a;
+
         if(max<0 || max < min || min<0){
             cout << "Wrong values entered, defining default values 1-12";
             max=12;
             min=1;
             cur=1;
-        } else cur = min;
+        } 
+        else {
+            max = b;
+            min = a;
+            cur = min;
+        }
     }
         
-    CircularInt& CircularInt::operator =(CircularInt cp){
+    CircularInt& CircularInt::operator=(CircularInt cp){
         this->max = cp.max;
         this->min = cp.min;
         this->cur = cp.cur;
+        return *this;
     }
         
-    CircularInt& CircularInt::operator =(int cp){
+    CircularInt& CircularInt::operator=(int cp){
         this->cur = cp;
+        return *this;
     }
         
     CircularInt& CircularInt::operator+=(CircularInt add){
-        cur +=add.cur;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur += add.cur;
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator+=(int add){
-        cur +=add;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur += add;
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator-=(CircularInt sub){
-        cur -=sub.cur;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur -= sub.cur;
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator-=(int sub){
-        cur -=sub;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur -= sub;
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator*=(CircularInt mul){
         cur *=mul.cur;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator*=(int mul){
         cur *=mul;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator/=(CircularInt div){
         cur /=div.cur;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
     CircularInt& CircularInt::operator/=(int div){
         cur /=div;
-        while(cur>max){
-            cur-=max;
-        }
-        while(cur<min){
-            cur+=max;
-        }
+        cur = cur % max;
+        if(cur < min)
+            cur += max;
         return *this;
     }
         
