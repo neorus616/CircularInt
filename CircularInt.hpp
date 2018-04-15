@@ -24,11 +24,11 @@ class CircularInt{
         
         void operator+(CircularInt);
         void operator+(int);
-        void operator-(CircularInt);
-        void operator-(int);
+        CircularInt& operator-(CircularInt);
+        CircularInt& operator-(int);
         void operator*(int);
         void operator/(int);
-        void operator++(int);
+        CircularInt& operator++(int);
         void operator--(int);
         ~CircularInt();
 };
