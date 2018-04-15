@@ -5,20 +5,23 @@ using namespace std;
 
 class CircularInt{
     private:
-        int max;
+       
+    public:
+     int max;
         int min;
         int cur;
-        
-    public:
         CircularInt(int, int);
         CircularInt& operator =(CircularInt);
         CircularInt& operator =(int);
         CircularInt& operator+=(CircularInt);
-        void operator-=(int);
-        void operator*=(int);
-        void operator/=(int);
-        ostream& operator<<(ostream& , const CircularInt&);
-        istream& operator>>(istream & , CircularInt&);
+        CircularInt& operator+=(int);
+        CircularInt& operator-=(CircularInt);
+        CircularInt& operator-=(int);
+        CircularInt& operator*=(CircularInt);
+        CircularInt& operator*=(int);
+        CircularInt& operator/=(CircularInt);
+        CircularInt& operator/=(int);
+        
         void operator+(CircularInt);
         void operator+(int);
         void operator-(CircularInt);
@@ -29,3 +32,5 @@ class CircularInt{
         void operator--(int);
         ~CircularInt();
 };
+std::ostream& operator<<(ostream& , const CircularInt&);
+        std::istream& operator>>(istream & , CircularInt&);
