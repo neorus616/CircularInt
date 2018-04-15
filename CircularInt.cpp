@@ -17,19 +17,19 @@ using namespace std;
         }
     }
         
-    CircularInt& CircularInt::operator=(CircularInt cp){
+    CircularInt& CircularInt::operator=(const CircularInt cp){
         this->max = cp.max;
         this->min = cp.min;
         this->cur = cp.cur;
         return *this;
     }
         
-    CircularInt& CircularInt::operator=(int cp){
+    CircularInt& CircularInt::operator=(const int cp){
         this->cur = cp;
         return *this;
     }
         
-    CircularInt& CircularInt::operator+=(CircularInt add){
+    CircularInt& CircularInt::operator+=(const CircularInt add){
         cur += add.cur;
         cur = cur % max;
         if(cur < min)
@@ -37,7 +37,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator+=(int add){
+    CircularInt& CircularInt::operator+=(const int add){
         cur += add;
         cur = cur % max;
         if(cur < min)
@@ -45,7 +45,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator-=(CircularInt sub){
+    CircularInt& CircularInt::operator-=(const CircularInt sub){
         cur -= sub.cur;
         cur = cur % max;
         if(cur < min)
@@ -53,7 +53,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator-=(int sub){
+    CircularInt& CircularInt::operator-=(const int sub){
         cur -= sub;
         cur = cur % max;
         if(cur < min)
@@ -61,32 +61,32 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator*=(CircularInt mul){
-        cur *=mul.cur;
+    CircularInt& CircularInt::operator*=(const CircularInt mul){
+        cur *= mul.cur;
         cur = cur % max;
         if(cur < min)
             cur += max;
         return *this;
     }
         
-    CircularInt& CircularInt::operator*=(int mul){
-        cur *=mul;
+    CircularInt& CircularInt::operator*=(const int mul){
+        cur *= mul;
         cur = cur % max;
         if(cur < min)
             cur += max;
         return *this;
     }
         
-    CircularInt& CircularInt::operator/=(CircularInt div){
-        cur /=div.cur;
+    CircularInt& CircularInt::operator/=(const CircularInt div){
+        cur /= div.cur;
         cur = cur % max;
         if(cur < min)
             cur += max;
         return *this;
     }
         
-    CircularInt& CircularInt::operator/=(int div){
-        cur /=div;
+    CircularInt& CircularInt::operator/=(const int div){
+        cur /= div;
         cur = cur % max;
         if(cur < min)
             cur += max;
@@ -97,31 +97,31 @@ using namespace std;
         return os << circ.cur;
     }
     
-    std::istream& operator>>(istream & is, CircularInt& frac){     
-        }
+    std::istream& operator>>(istream & is, const CircularInt& circ){     
+    }
 
-        void CircularInt::operator+(CircularInt a){   
-        }
+    void CircularInt::operator+(CircularInt a){   
+    }
 
-        void CircularInt::operator+(int a){   
-        }
+    void CircularInt::operator+(int a){   
+    }
 
-        void CircularInt::operator-(CircularInt a){   
-        }
+    void CircularInt::operator-(CircularInt a){   
+    }
 
-        void CircularInt::operator-(int a){   
-        }
+    void CircularInt::operator-(int a){   
+    }
         
-        void CircularInt::operator*(int a){            
-        }
+    void CircularInt::operator*(int a){            
+    }
 
-        void CircularInt::operator/(int a){            
-        }
+    void CircularInt::operator/(int a){            
+    }
 
-        void CircularInt::operator++(int a){            
-        }
+    void CircularInt::operator++(int a){            
+    }
         
-        void CircularInt::operator--(int b){            
-        }
+    void CircularInt::operator--(int b){            
+    }
         
-        CircularInt::~CircularInt(){};
+    CircularInt::~CircularInt(){};
