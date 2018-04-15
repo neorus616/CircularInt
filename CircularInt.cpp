@@ -3,7 +3,6 @@
 using namespace std;
 
     CircularInt::CircularInt(int a, int b){
-
         if(max<0 || max < min || min<0){
             cout << "Wrong values entered, defining default values 1-12";
             max=12;
@@ -103,10 +102,6 @@ using namespace std;
     void CircularInt::operator+(CircularInt a){   
     }
 
-    CircularInt& CircularInt::operator++(int){
-        cur++;
-        return *this;
-    }
 
         // CircularInt& CircularInt::operator-(int a){
         //     return *this;
