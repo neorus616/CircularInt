@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "CircularInt.hpp"
 using namespace std;
 
@@ -109,6 +110,16 @@ using namespace std;
         res -= obj;
         return res;
     }
+    
+    CircularInt operator / ( CircularInt const & obj,int x){
+        CircularInt res {obj.min, obj.max};
+        res.cur = obj.cur;
+        if(res.cur%x==0)
+        res /= x;
+        else
+        throw string("There is no number x in {1,12} such that x*"+to_string(x)+"="+to_string(obj.cur)+" ");
+        return res;
+    }
 
     CircularInt operator + (CircularInt const & a, CircularInt const & b){
         CircularInt res {a.min, a.max};
@@ -116,9 +127,15 @@ using namespace std;
         return res;
     }
 
-    CircularInt& CircularInt::operator-(){
-        cur = (max - cur) % max;
-        return *this;
+    CircularInt CircularInt::operator-(){
+       // cur = (max - cur) % max;
+       CircularInt res {min, max};
+       res.cur = cur;
+        res.cur -= max;
+        res.cur *= -1;
+        // if(cur<min)
+        // cur*=(-1);
+        return res;
     }
         
     //void CircularInt::operator*(int a){            

@@ -1,8 +1,8 @@
-CXX=clang++-5.0
-CXXFLAGS=-std=c++17 
+CXX=g++
+CXXFLAGS=-std=c++11 
 
 all: a.out
-	./a.out
+	./a.exe
 
 a.out: CircularInt.o main.o
 	$(CXX) $(CXXFLAGS) CircularInt.o main.o
@@ -14,4 +14,4 @@ main.o: main.cpp CircularInt.hpp doctest.h
 	$(CXX) $(CXXFLAGS) --compile main.cpp -o main.o
 
 clean: 
-	rm *.o a.out
+	rm *.o a.exe
