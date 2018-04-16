@@ -93,9 +93,12 @@ CircularInt& CircularInt::operator ++ (){
 
 const CircularInt CircularInt::operator ++ (int){
 	CircularInt res {min, max};
-    res.cur = this->cur++ % this->max;
-	if(res.cur < res.min)
-		res.cur += res.max;
+	if(cur==max){
+	    res.cur = min;
+	    cur = min;
+	}
+	else 
+	    res.cur = cur++;
 	return res;
 }
 
