@@ -22,8 +22,8 @@ class CircularInt{
         CircularInt& operator/=(int);
         friend CircularInt operator - (int, CircularInt const &);
         friend CircularInt operator - (CircularInt const &,int);
+        friend CircularInt operator - (CircularInt const &,CircularInt const &);
         friend CircularInt operator + (CircularInt const &, CircularInt const &);
-        friend CircularInt operator - (CircularInt const &, CircularInt const &);
         friend CircularInt operator / ( CircularInt const &,int);
         friend ostream& operator<<(ostream &, CircularInt const &);
         friend istream& operator>>(istream & ,CircularInt const &);
