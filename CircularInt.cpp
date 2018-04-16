@@ -96,6 +96,7 @@ const CircularInt CircularInt::operator ++ (int){
     res.cur = this->cur++;
 	return res;
 }
+
 //---------------------------------Subtraction---------------------------------//
 CircularInt& CircularInt::operator -= (CircularInt const & sub){
 	cur -= sub.cur;
@@ -248,7 +249,7 @@ CircularInt operator / (CircularInt const & a, CircularInt const & b){
             res.cur = a.cur / b.cur;
         else
             throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-	    return res;
+		return res;
 	}
 }
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
