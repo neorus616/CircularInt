@@ -54,6 +54,8 @@ using namespace std;
 
     // }
 
+    //change for commit
+
 TEST_CASE("testing the assignment operator") {
     CHECK(hour == 1);
     hour = hour - 4;

@@ -3,6 +3,8 @@
 #include "CircularInt.hpp"
 using namespace std;
 
+    //change for commit
+
 //Constructor
 CircularInt::CircularInt(int min, int max){
 	if(max < 0 || min < 0 || max < min){
