@@ -3,7 +3,7 @@
 #include "CircularInt.hpp"
 using namespace std;
 
-//coding from universty pc check
+
     CircularInt::CircularInt(int min, int max){
         if(max<0 || max < min || min<0){
             cout << "Wrong values entered, defining default values 1-12";
@@ -24,11 +24,7 @@ using namespace std;
         this->cur = cp.cur;
         return *this;
     }
-        
-    CircularInt& CircularInt::operator=(const int cp){
-        this->cur = cp;
-        return *this;
-    }
+
         
     CircularInt& CircularInt::operator+=(const CircularInt& add){
         cur += add.cur;
@@ -101,14 +97,17 @@ using namespace std;
     //std::istream& operator>>(istream & is, const CircularInt& circ){     
     //}
 
-    //void CircularInt::operator+(CircularInt a){   
-    //}
 
     CircularInt operator - (int x, CircularInt const & obj){
         CircularInt res {obj.min, obj.max};
         res.cur = x;
         res -= obj;
         return res;
+    }
+    
+    CircularInt operator - (CircularInt const & obj,int x){
+        obj-=x;
+        return obj;
     }
     
     CircularInt operator / ( CircularInt const & obj,int x){
