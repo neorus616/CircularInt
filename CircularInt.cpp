@@ -16,15 +16,37 @@ CircularInt::CircularInt(int min, int max){
 		cur = min;
 	}
 }
-
-// Assignment
+//= = = = = = = = = = = = = = = = Assignment = = = = = = = = = = = = = = = = = //
 CircularInt& CircularInt::operator = (CircularInt const & cp){
 	this->max = cp.max;
 	this->min = cp.min;
 	this->cur = cp.cur;
 	return *this;
 }
+//================================Comparison===================================//
+bool operator == (CircularInt const & obj, int const num){
+    return obj.cur == num;
+}
 
+bool operator == (int const num, CircularInt const & obj){
+    return num == obj.cur;
+}
+
+bool operator == (CircularInt const & a, CircularInt const & b){
+    return a.cur == b.cur;
+}
+
+bool operator != (CircularInt const & obj, int num){
+    return !(obj.cur == num);
+}
+
+bool operator != (int num, CircularInt const & obj){
+    return !(num == obj.cur);
+}
+
+bool operator != (CircularInt const & a, CircularInt const & b){
+    return !(a.cur == b.cur);
+}
 //+++++++++++++++++++++++++++++++++Addition++++++++++++++++++++++++++++++++++++//
 CircularInt& CircularInt::operator += (CircularInt const & add){
 	cur += add.cur;
@@ -48,9 +70,9 @@ CircularInt operator + (int x, CircularInt const & obj){
 	return res;
 }
 
-CircularInt operator + (CircularInt const & obj, int x){
+CircularInt operator + (CircularInt const & obj, int add){
 	CircularInt res {obj.min, obj.max};
-	res.cur = (x + obj.cur) % obj.max;
+	res.cur = (add + obj.cur) % obj.max;
 	return res;
 }
 
@@ -65,7 +87,7 @@ CircularInt operator + (CircularInt const & a, CircularInt const & b){
 }
 
 CircularInt& CircularInt::operator ++ (){
-	cur++;
+	*this += 1;
 	return *this;
 }
 
@@ -74,7 +96,6 @@ const CircularInt CircularInt::operator ++ (int){
     res.cur = this->cur++;
 	return res;
 }
-
 //---------------------------------Subtraction---------------------------------//
 CircularInt& CircularInt::operator -= (CircularInt const & sub){
 	cur -= sub.cur;
@@ -100,10 +121,10 @@ CircularInt operator - (int x, CircularInt const & obj){
 	return res;
 }
 
-CircularInt operator - (CircularInt const & obj, int x){
+CircularInt operator - (CircularInt const & obj, int sub){
 	CircularInt res {obj.min, obj.max};
 	res.cur = obj.cur;
-	res -= x;
+	res -= sub;
 	return res;
 }
 
@@ -137,7 +158,6 @@ const CircularInt CircularInt::operator -- (int){
     res.cur = this->cur--;
 	return res;
 }
-
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
 	cur *= mul.cur;
@@ -163,10 +183,10 @@ CircularInt operator * (int x, CircularInt const & obj){
 	return res;
 }
 
-CircularInt operator * (CircularInt const & obj, int x){
+CircularInt operator * (CircularInt const & obj, int mul){
 	CircularInt res {obj.min, obj.max};
 	res.cur = obj.cur;
-	res *= x;
+	res *= mul;
 	return res;
 }
 
@@ -181,7 +201,6 @@ CircularInt operator * (CircularInt const & a, CircularInt const & b){
 		return res;
 	}
 }
-
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
 CircularInt& CircularInt::operator /= (CircularInt const & div){
 	cur /= div.cur;
@@ -199,13 +218,13 @@ CircularInt& CircularInt::operator /= (int const div){
 	return *this;
 }
 
-CircularInt operator / ( CircularInt const & obj, int x){
+CircularInt operator / ( CircularInt const & obj, int div){
 	CircularInt res {obj.min, obj.max};
 	res.cur = obj.cur;
-	if(res.cur%x == 0)
-		res /= x;
+	if(res.cur % div == 0)
+		res /= div;
 	else
-		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(x)+"="+to_string(obj.cur)+"\" ";
+		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
 	return res;
 }
 
@@ -221,18 +240,17 @@ CircularInt operator / (int x, CircularInt const & obj){
 }
 
 CircularInt operator / (CircularInt const & a, CircularInt const & b){
-	if(a.max != b.max || a.min != b.min){
+	if(a.max != b.max || a.min != b.min)
 		throw "The objects have different cycles";
-	} else {
+	else {
 		CircularInt res {a.min, a.max};
         if(a.cur % b.cur == 0)
             res.cur = a.cur / b.cur;
         else
             throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-		return res;
+	    return res;
 	}
 }
-
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 ostream& operator << (ostream& os, CircularInt const & circ){
 	return os << circ.cur;
