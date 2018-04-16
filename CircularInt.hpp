@@ -12,20 +12,23 @@ class CircularInt{
         CircularInt(int, int);
         CircularInt& operator = (int);
         CircularInt& operator = (CircularInt const &);
-        
+        //+++++++++++++++++++++++++++++++++Addition++++++++++++++++++++++++++++++++++++//
         CircularInt& operator += (int);
         CircularInt& operator += (CircularInt const &);
         friend CircularInt operator + (int, CircularInt const &);
         friend CircularInt operator + (CircularInt const &, int);
         friend CircularInt operator + (CircularInt const &, CircularInt const &);
-        CircularInt& operator ++ (int);
-        //---------------------------------Subtraction---------------------------------//
+        CircularInt& operator ++ ();
+        const CircularInt operator ++ (int);
+        //--------------------------------Subtraction----------------------------------//
         CircularInt operator - ();
         CircularInt& operator -= (CircularInt const &);
         CircularInt& operator -= (int);
         friend CircularInt operator - (int, CircularInt const &);
         friend CircularInt operator - (CircularInt const &,int);
         friend CircularInt operator - (CircularInt const &,CircularInt const &);
+        CircularInt& operator -- ();
+        const CircularInt operator -- (int);
         //*******************************Multiplication********************************//
         CircularInt& operator *= (CircularInt const &);
         CircularInt& operator *= (int);

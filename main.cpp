@@ -1,25 +1,21 @@
 #include <iostream>
-#include "CircularInt.hpp"
 using namespace std;
 
+#include "CircularInt.hpp"
+
+
 int main() {
-	
 	CircularInt hour {1, 12};                 // <hour is an integer between 1 and 12, like an hour on the clock>
-	CircularInt hour2 {1, 12};
-	hour2++;hour2++;hour2++;
 	cout << hour << endl;                     // 1
 	hour += 4;  cout << hour << endl;         // 5
 	(hour += 2)++;  cout << hour << endl;     // 8
 	hour += 18;   cout << hour << endl;       // 2   (18 hours after 8)
 	cout << -hour << endl;                    // 10  (2 hours before midnight)
-	hour++;
-	hour = hour - 1;
-	cout << "current hour :" << hour << endl;
-	cout << "current hour2 :" << hour2 << endl;
-	cout << "hour minus hour2 : " << hour-hour2 << endl;                // 10 (11 hours after 11);
+	hour = 1 - hour; cout << hour << endl;    // 11  (2 hours before 1)
+	cout << hour+hour << endl;                // 10 (11 hours after 11)
 	hour *= 2;   cout << hour << endl;        // 10 (11*2 = 11+11)
 	cout << hour/2 << endl;                   // TWO OPTIONS: 11 (since 11*2=10) or 5 (since 5*2=10 too).
-	cout << "current hour:" << hour << endl; 
+
 	try {
 		cout << hour/3;
 	} catch (const string& message) {
@@ -30,6 +26,4 @@ int main() {
 	//  * when is there exactly one answer to a/b?
 	//  * when are there two or more answers to a/b?
 	//	* when is there no answer to a/b?
-	
-	return 0;
 }
