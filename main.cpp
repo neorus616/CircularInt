@@ -62,7 +62,7 @@ TEST_CASE("testing the assignment operator") {
     CHECK(hour == 9);
 }
 
-TEST_CASE("testing the addition function") {
+TEST_CASE("testing the addition functions") {
     hour += 4;
     CHECK(hour == 1);
     hour = hour + 33;
@@ -83,7 +83,10 @@ TEST_CASE("testing the addition function") {
     hour = tmpHour + hour;
     CHECK(hour == 5);
     tmpHour++;
-    hour = ++tmpHour;
+    hour = tmpHour++;
     CHECK(hour == 6);
     CHECK(tmpHour == 7);
+    hour = ++tmpHour;
+    CHECK(hour == 8);
+    CHECK(tmpHour == 8);
 }

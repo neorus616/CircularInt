@@ -67,12 +67,16 @@ CircularInt& CircularInt::operator += (int const add){
 CircularInt operator + (int x, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
     res.cur = (x + obj.cur) % obj.max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 
 CircularInt operator + (CircularInt const & obj, int add){
 	CircularInt res {obj.min, obj.max};
 	res.cur = (add + obj.cur) % obj.max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 
