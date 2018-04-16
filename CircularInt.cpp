@@ -2,6 +2,7 @@
 #include "CircularInt.hpp"
 using namespace std;
 
+//coding from universty pc check
     CircularInt::CircularInt(int min, int max){
         if(max<0 || max < min || min<0){
             cout << "Wrong values entered, defining default values 1-12";
