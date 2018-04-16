@@ -92,8 +92,10 @@ CircularInt& CircularInt::operator ++ (){
 }
 
 const CircularInt CircularInt::operator ++ (int){
-    CircularInt res {min, max};
-    res.cur = this->cur++;
+	CircularInt res {min, max};
+    res.cur = this->cur++ % this->max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 
@@ -135,7 +137,7 @@ CircularInt operator - (CircularInt const & a, CircularInt const & b){
 	} else {
 		CircularInt res {a.min, a.max};
 		res.cur = (a.cur - b.cur) % res.max;
-		if(res.cur < 0)
+		if(res.cur < res.min)
 			res.cur += res.max;
 		return res;
 	}
@@ -150,13 +152,15 @@ CircularInt CircularInt::operator - (){
 }
 
 CircularInt& CircularInt::operator -- (){
-	cur--;
+	cur -= 1;
 	return *this;
 }
 
 const CircularInt CircularInt::operator -- (int){
-    CircularInt res {min, max};
-    res.cur = this->cur--;
+	CircularInt res {min, max};
+    res.cur = this->cur-- % this->max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 //*******************************Multiplication********************************//
@@ -197,7 +201,7 @@ CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	} else {
 		CircularInt res {a.min, a.max};
 		res.cur = a.cur * b.cur % res.max;
-		if(res.cur < 0)
+		if(res.cur < res.min)
 			res.cur += res.max;
 		return res;
 	}
