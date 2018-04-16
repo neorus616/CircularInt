@@ -1,8 +1,6 @@
 #include <iostream>
-using namespace std;
 #include "CircularInt.hpp"
-
-// hacked2..
+using namespace std;
 
 int main() {
 	

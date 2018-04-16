@@ -5,11 +5,11 @@ using namespace std;
 
 
     CircularInt::CircularInt(int min, int max){
-        if(max<0 || max < min || min<0){
-            cout << "Wrong values entered, defining default values 1-12";
-            this->max=12;
-            this->min=1;
-            cur=1;
+        if(max < 0 || min < 0 || max < min){
+            cout << "Wrong values entered, defining default values 1-12" << endl;
+            this->max = 12;
+            this->min = 1;
+            cur = 1;
         } 
         else {
             this->max = max;
@@ -18,15 +18,14 @@ using namespace std;
         }
     }
         
-    CircularInt& CircularInt::operator= (const CircularInt& cp){
+    CircularInt& CircularInt::operator = (CircularInt const & cp){
         this->max = cp.max;
         this->min = cp.min;
         this->cur = cp.cur;
         return *this;
     }
 
-        
-    CircularInt& CircularInt::operator+=(const CircularInt& add){
+    CircularInt& CircularInt::operator += (CircularInt const & add){
         cur += add.cur;
         cur = cur % max;
         if(cur < min)
@@ -34,7 +33,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator+=(const int add){
+    CircularInt& CircularInt::operator += (int const add){
         cur += add;
         cur = cur % max;
         if(cur < min)
@@ -42,7 +41,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator-=(const CircularInt& sub){
+    CircularInt& CircularInt::operator -= (CircularInt const & sub){
         cur -= sub.cur;
         cur = cur % max;
         if(cur < min)
@@ -50,7 +49,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator-=(const int sub){
+    CircularInt& CircularInt::operator -= (int const sub){
         cur -= sub;
         cur = cur % max;
         if(cur < min)
@@ -58,7 +57,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator*=(const CircularInt& mul){
+    CircularInt& CircularInt::operator *= (CircularInt const & mul){
         cur *= mul.cur;
         cur = cur % max;
         if(cur < min)
@@ -66,7 +65,7 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator*=(const int mul){
+    CircularInt& CircularInt::operator *= (int const mul){
         cur *= mul;
         cur = cur % max;
         if(cur < min)
@@ -74,29 +73,38 @@ using namespace std;
         return *this;
     }
         
-    CircularInt& CircularInt::operator/=(const CircularInt& div){
-        cur /= div.cur;
-        cur = cur % max;
-        if(cur < min)
-            cur += max;
+    CircularInt& CircularInt::operator /= (CircularInt const & div){
+        if(cur % div.cur != 0)
+            throw "There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x * "+to_string(div.cur)+" = "+to_string(cur)+" ";
+        else{
+            cur /= div.cur;
+            cur = cur % max;
+            if(cur < min)
+                cur += max;
+        }
         return *this;
     }
         
-    CircularInt& CircularInt::operator/=(const int div){
+    CircularInt& CircularInt::operator /= (int const div){
+         if(cur % div != 0)
+            throw "There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x * "+to_string(div)+" = "+to_string(cur)+" ";
+        else{
         cur /= div;
         cur = cur % max;
         if(cur < min)
             cur += max;
+        }
         return *this;
     }
         
-    std::ostream& operator<<(ostream& os, CircularInt const & circ){
+    ostream& operator << (ostream& os, CircularInt const & circ){
         return os << circ.cur;
     }
     
-    //std::istream& operator>>(istream & is, const CircularInt& circ){     
-    //}
-
+    istream& operator >> (istream & is, CircularInt& circ){
+        is >> circ.min >> circ.max;
+        circ.cur = circ.min;
+    }
 
     CircularInt operator - (int x, CircularInt const & obj){
         CircularInt res {obj.min, obj.max};

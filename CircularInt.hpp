@@ -10,28 +10,27 @@ class CircularInt{
        
     public:
         CircularInt(int, int);
-        CircularInt& operator =(CircularInt const &);
-        CircularInt& operator =(int);
-        CircularInt& operator+=(CircularInt const &);
-        CircularInt& operator+=(int);
-        CircularInt& operator-=(CircularInt const &);
-        CircularInt& operator-=(int);
-        CircularInt& operator*=(CircularInt const &);
-        CircularInt& operator*=(int);
-        CircularInt& operator/=(CircularInt const &);
-        CircularInt& operator/=(int);
+        CircularInt& operator = (CircularInt const &);
+        CircularInt& operator = (int const);
+        CircularInt& operator += (CircularInt const &);
+        CircularInt& operator += (int const);
+        CircularInt& operator -= (CircularInt const &);
+        CircularInt& operator -= (int const);
+        CircularInt& operator *= (CircularInt const &);
+        CircularInt& operator *= (int const);
+        CircularInt& operator /= (CircularInt const &);
+        CircularInt& operator /= (int const);
         friend CircularInt operator - (int, CircularInt const &);
-        friend CircularInt operator - (CircularInt const &,int);
-        friend CircularInt operator - (CircularInt const &,CircularInt const &);
+        friend CircularInt operator - (CircularInt const &, int);
+        friend CircularInt operator - (CircularInt const &, CircularInt const &);
         friend CircularInt operator + (int, CircularInt const &);
-        friend CircularInt operator + (CircularInt const &,int);
+        friend CircularInt operator + (CircularInt const &, int);
         friend CircularInt operator + (CircularInt const &, CircularInt const &);
         friend CircularInt operator / (int, CircularInt const &);
-        friend CircularInt operator / (CircularInt const &,int);
+        friend CircularInt operator / (CircularInt const &, int);
         friend CircularInt operator / (CircularInt const &, CircularInt const &);
         friend ostream& operator<<(ostream &, CircularInt const &);
-        friend istream& operator>>(istream & ,CircularInt const &);
-        
+        friend istream& operator>>(istream &, CircularInt &);
         
         //void operator+(CircularInt);
         //void operator+(int);
