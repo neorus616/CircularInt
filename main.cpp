@@ -77,6 +77,13 @@ TEST_CASE("testing the addition function") {
     tmpHour = 16 + tmpHour;
     CHECK(tmpHour == 5);
     hour += tmpHour;
-    CHECK(hour == 4);
-    
+    CHECK(hour == 6);
+    hour = tmpHour + 7;
+    CHECK(hour == 12);
+    hour = tmpHour + hour;
+    CHECK(hour == 5);
+    tmpHour++;
+    hour = ++tmpHour;
+    CHECK(hour == 6);
+    CHECK(tmpHour == 7);
 }
