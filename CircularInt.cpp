@@ -100,6 +100,7 @@ using namespace std;
 
     CircularInt operator - (int x, CircularInt const & obj){
         CircularInt res {obj.min, obj.max};
+        x = x % obj.max;
         res.cur = x;
         res -= obj;
         return res;
@@ -108,7 +109,6 @@ using namespace std;
     CircularInt operator - (CircularInt const & obj,int x){
         CircularInt res {obj.min, obj.max};
         res.cur = obj.cur;
-       // cout << res.cur;
         res -= x;
         return res;
     }
@@ -121,7 +121,7 @@ using namespace std;
             res.cur = a.cur - b.cur;
             if(res.cur < 0){
                 res.cur = res.cur % res.max;
-                res.cur = res.cur*-1;
+                res.cur = res.cur+res.max;
             }
             return res;
         }
@@ -136,11 +136,52 @@ using namespace std;
         throw string("There is no number x in {1,12} such that x*"+to_string(x)+"="+to_string(obj.cur)+" ");
         return res;
     }
+    
+    CircularInt operator / (int x, CircularInt const & obj){
+        CircularInt res {obj.min, obj.max};
+        x = x % obj.max;
+        res.cur = x;
+        res /= obj;
+        return res;
+    }
+    
+    CircularInt operator / (CircularInt const & a, CircularInt const & b){
+        if(a.max != b.max || a.min != b.min){
+            throw string("The objects have different cycles");
+        } else {
+            CircularInt res {a.min, a.max};
+            res.cur = a.cur / b.cur;
+            if(res.cur < 0){
+                res.cur = res.cur % res.max;
+                res.cur = res.cur+res.max;
+            }
+            return res;
+        }
+    }
 
+    CircularInt operator + (int x, CircularInt const & obj){
+        CircularInt res {obj.min, obj.max};
+        x = x % obj.max;
+        res.cur = x;
+        res += obj;
+        return res;
+    }
+    
+    CircularInt operator + (CircularInt const & obj,int x){
+        CircularInt res {obj.min, obj.max};
+        res.cur = obj.cur;
+        res += x;
+        return res;
+    }
+    
     CircularInt operator + (CircularInt const & a, CircularInt const & b){
+        if(a.max != b.max || a.min != b.min){
+            throw string("The objects have different cycles");
+        } else {
         CircularInt res {a.min, a.max};
         res.cur = (a.cur + b.cur) % a.max;
         return res;
+        }
     }
 
     CircularInt CircularInt::operator-(){
@@ -154,16 +195,11 @@ using namespace std;
         return res;
     }
         
-    //void CircularInt::operator*(int a){            
-    //}
 
-        CircularInt& CircularInt::operator++(int){
-            cur++;
-            return *this;
-        }//
+    CircularInt& CircularInt::operator++(int){
+        cur++;
+        return *this;
+    }
         
-    // CircularInt& CircularInt::operator--(int){    
-    //     return *this;
-    // }
-        
+      
     CircularInt::~CircularInt(){};

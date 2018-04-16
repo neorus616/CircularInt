@@ -7,15 +7,18 @@ using namespace std;
 int main() {
 	
 	CircularInt hour {1, 12};                 // <hour is an integer between 1 and 12, like an hour on the clock>
+	CircularInt hour2 {1, 12};
+	hour2++;hour2++;hour2++;
 	cout << hour << endl;                     // 1
 	hour += 4;  cout << hour << endl;         // 5
 	(hour += 2)++;  cout << hour << endl;     // 8
 	hour += 18;   cout << hour << endl;       // 2   (18 hours after 8)
 	cout << -hour << endl;                    // 10  (2 hours before midnight)
 	hour++;
-	cout << "current hour:" << hour << endl;
-	hour = hour - 1; cout << hour << endl;    // 11  (2 hours before 1)
-	cout << hour-hour << endl;                // 10 (11 hours after 11)
+	hour = hour - 1;
+	cout << "current hour :" << hour << endl;
+	cout << "current hour2 :" << hour2 << endl;
+	cout << "hour minus hour2 : " << hour-hour2 << endl;                // 10 (11 hours after 11);
 	hour *= 2;   cout << hour << endl;        // 10 (11*2 = 11+11)
 	cout << hour/2 << endl;                   // TWO OPTIONS: 11 (since 11*2=10) or 5 (since 5*2=10 too).
 	cout << "current hour:" << hour << endl; 
