@@ -5,7 +5,13 @@ using namespace std;
 
     //change for commit
 
-//Constructor
+//Constructors
+
+    CircularInt::CircularInt(){
+		max = 12;
+		min = 1;
+		cur = 1;
+	}
 CircularInt::CircularInt(int min, int max){
 	if(max < 0 || min < 0 || max < min){
 		cout << "Wrong values entered, defining default values 1-12" << endl;
@@ -18,11 +24,17 @@ CircularInt::CircularInt(int min, int max){
 		cur = min;
 	}
 }
+
+CircularInt::CircularInt(CircularInt& obj){
+		this->max = obj.max;
+		this->min = obj.min;
+		this->cur = obj.cur;
+}
 //= = = = = = = = = = = = = = = = Assignment = = = = = = = = = = = = = = = = = //
-CircularInt& CircularInt::operator = (CircularInt const & cp){
-	this->max = cp.max;
-	this->min = cp.min;
-	this->cur = cp.cur;
+CircularInt& CircularInt::operator = (CircularInt const & obj){
+	this->max = obj.max;
+	this->min = obj.min;
+	this->cur = obj.cur;
 	return *this;
 }
 //================================Comparison===================================//
@@ -59,7 +71,7 @@ CircularInt& CircularInt::operator += (CircularInt const & add){
 }
 
 CircularInt& CircularInt::operator += (int const add){
-	cur += add;
+	cur += add % (max - min + 1);
 	cur = cur % max;
 	if(cur < min)
 		cur += max;

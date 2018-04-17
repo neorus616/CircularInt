@@ -92,3 +92,12 @@ TEST_CASE("testing the addition functions") {
     CHECK(hour == 8);
     CHECK(tmpHour == 8);
 }
+
+TEST_CASE("testing the cin function") {
+    CircularInt cirin;
+    cout << "enter min and max values" << endl;
+    cin >> cirin;
+    CHECK(cirin == 1);
+    cirin += 2;
+    CHECK(cirin == 1);
+}

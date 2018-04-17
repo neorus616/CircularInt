@@ -9,7 +9,9 @@ class CircularInt{
         int cur;
        
     public:
+        CircularInt();
         CircularInt(int, int);
+        CircularInt::CircularInt(CircularInt& obj);
         //= = = = = = = = = = = = = = = =Assignment = = = = = = = = = = = = = = = = = =//
         CircularInt& operator = (CircularInt const &);
         //===============================Comparison====================================//
