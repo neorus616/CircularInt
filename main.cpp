@@ -46,8 +46,8 @@ TEST_CASE("testing the addition operators") {
     CHECK(tmpHour == 8);
 }
 
-TEST_CASE("testing the addition functions"){
-	CHECK(hour == 8);
-	hour /= 11;
-	CHECK_THROWS_AS(hour/=11, std::exception);
-}
+// TEST_CASE("testing the addition functions"){
+// 	CHECK(hour == 8);
+// 	hour /= 11;
+// 	CHECK_THROWS_AS(hour/=11, std::exception);
+// }
