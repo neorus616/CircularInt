@@ -155,31 +155,19 @@ CircularInt& CircularInt::operator *= (int const mul){
 	return *this;
 }
 
-CircularInt operator * (int x, CircularInt const & obj){
+CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	x = x % obj.max;
-	res.cur = x;
-	res *= obj;
+	res.cur = normalization(obj.cur*mul, obj.min, obj.max);
 	return res;
 }
 
 CircularInt operator * (CircularInt const & obj, int mul){
-	CircularInt res {obj.min, obj.max};
-	res.cur = obj.cur;
-	res *= mul;
-	return res;
+	return mul * obj ;
 }
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
-	if(a.max != b.max || a.min != b.min){
-		throw "The objects have different cycles";
-	} else {
-		CircularInt res {a.min, a.max};
-		res.cur = a.cur * b.cur % res.max;
-		if(res.cur < res.min)
-			res.cur += res.max;
-		return res;
-	}
+	CircularInt res {a.min, a.max};
+	res.cur = normalization(a.cur*b.cur, a.min, a.max);
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
 CircularInt& CircularInt::operator /= (CircularInt const & div){
