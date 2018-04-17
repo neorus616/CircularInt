@@ -3,6 +3,8 @@
 #include "CircularInt.hpp"
 using namespace std;
 
+    //change for commit
+
 //Constructor
 CircularInt::CircularInt(int min, int max){
 	if(max < 0 || min < 0 || max < min){
@@ -67,12 +69,16 @@ CircularInt& CircularInt::operator += (int const add){
 CircularInt operator + (int x, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
     res.cur = (x + obj.cur) % obj.max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 
 CircularInt operator + (CircularInt const & obj, int add){
 	CircularInt res {obj.min, obj.max};
 	res.cur = (add + obj.cur) % obj.max;
+	if(res.cur < res.min)
+		res.cur += res.max;
 	return res;
 }
 
@@ -93,12 +99,12 @@ CircularInt& CircularInt::operator ++ (){
 
 const CircularInt CircularInt::operator ++ (int){
 	CircularInt res {min, max};
-	if(cur==max){
-	    res.cur = min;
-	    cur = min;
+	if(cur == max){
+		res.cur = min;
+		cur = min;
 	}
-	else 
-	    res.cur = cur++;
+	else
+		res.cur = cur++;
 	return res;
 }
 
@@ -161,9 +167,12 @@ CircularInt& CircularInt::operator -- (){
 
 const CircularInt CircularInt::operator -- (int){
 	CircularInt res {min, max};
-    res.cur = this->cur-- % this->max;
-	if(res.cur < res.min)
-		res.cur += res.max;
+    if(cur == min){
+		res.cur = max;
+		cur = max;
+	}
+	else
+		res.cur = cur--;
 	return res;
 }
 //*******************************Multiplication********************************//

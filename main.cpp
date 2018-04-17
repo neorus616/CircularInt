@@ -3,58 +3,13 @@
 #include "CircularInt.hpp"
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
+#include <cassert>
 
 using namespace std;
 
-// int main() {
-	
-// 	CircularInt hour {1, 12};                 // <hour is an integer between 1 and 12, like an hour on the clock>
-// 	CircularInt hour2 {1, 12};
-// 	hour2++;hour2++;hour2++;
-// 	cout << hour << endl;                     // 1
-// 	hour += 4;  cout << hour << endl;         // 5
-// 	(hour += 2)++;  cout << hour << endl;     // 8
-// 	hour += 18;   cout << hour << endl;       // 2   (18 hours after 8)
-// 	cout << -hour << endl;                    // 10  (2 hours before midnight)
-// 	hour++;
-// 	hour = hour - 1;
-// 	cout << "current hour :" << hour << endl;
-// 	cout << "current hour2 :" << hour2 << endl;
-// 	cout << "hour minus hour2 : " << hour-hour2 << endl;                // 10 (11 hours after 11);
-// 	hour *= 2;   cout << hour << endl;        // 10 (11*2 = 11+11)
-// 	cout << hour/2 << endl;                   // TWO OPTIONS: 11 (since 11*2=10) or 5 (since 5*2=10 too).
-// 	cout << "current hour:" << hour << endl; 
-// 	try {
-// 		cout << hour/3;
-// 	} catch (const string& message) {
-// 		cout << message << endl;     // "There is no number x in {1,12} such that x*3=10"
-// 	}
-
-// 	// RIDDLES (not for submission): 
-// 	//  * when is there exactly one answer to a/b?
-// 	//  * when are there two or more answers to a/b?
-// 	//	* when is there no answer to a/b?
-	
-// 	return 0;
-// }
-
-
-
     CircularInt hour {1, 12};
 
-    // void test(){
-    //     Member david;
-    //     avi.follow(david);
-    //     CHECK(david.numFollowers() == 1);
-    //     avi.follow(chana);
-    //     CHECK(avi.numFollowing() == 3);
-    //     avi.unfollow(beni);
-    //     CHECK(avi.numFollowing() == 2);
-    //     CHECK(Member::count() == 4);
-
-    // }
-
-TEST_CASE("testing the assignment operator") {
+TEST_CASE("testing the assignment operators") {
     CHECK(hour == 1);
     hour = hour - 4;
     CHECK(hour == 9);
@@ -62,7 +17,7 @@ TEST_CASE("testing the assignment operator") {
     CHECK(hour == 9);
 }
 
-TEST_CASE("testing the addition function") {
+TEST_CASE("testing the addition operators") {
     hour += 4;
     CHECK(hour == 1);
     hour = hour + 33;
@@ -83,7 +38,16 @@ TEST_CASE("testing the addition function") {
     hour = tmpHour + hour;
     CHECK(hour == 5);
     tmpHour++;
-    hour = ++tmpHour;
+    hour = tmpHour++;
     CHECK(hour == 6);
     CHECK(tmpHour == 7);
+    hour = ++tmpHour;
+    CHECK(hour == 8);
+    CHECK(tmpHour == 8);
+}
+
+TEST_CASE("testing the addition functions"){
+	CHECK(hour == 8);
+	hour /= 11;
+	CHECK_THROWS_AS(hour/=11, std::exception);
 }
