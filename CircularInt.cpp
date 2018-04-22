@@ -177,11 +177,13 @@ CircularInt& CircularInt::operator /= (CircularInt const & div){
 		for(int i = min; i <= max; i++)
 			if(cur == div.cur * i){
 				this->cur = i;
-				return *this;
+				break;
 		}
 	}
 	else
 		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div.cur)+"="+to_string(cur)+"\" ";
+	return *this;
+
 }
 
 CircularInt& CircularInt::operator /= (int const div){
@@ -189,51 +191,54 @@ CircularInt& CircularInt::operator /= (int const div){
 		for(int i = min; i <= max; i++)
 			if(cur == div * i){
 				this->cur = i;
-				return *this;
+				break;
 		}
 	}
 	else
 		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div)+"="+to_string(cur)+"\" ";
+	return *this;
 
 }
 
 CircularInt operator / ( CircularInt const & obj, int div){
+	CircularInt res {obj.min, obj.max};
 	if(obj.min <= div && div <= obj.cur){
-		CircularInt res {obj.min, obj.max};
 		for(int i = obj.min; i <= obj.max; i++)
 			if(obj.cur == div * i){
 				res.cur = i;
-				return res;
+				break;
 		}
 	}
 	else
 		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
+	return res;
 }
 
 CircularInt operator / (int div, CircularInt const & obj){
+	CircularInt res {obj.min, obj.max};
 	if(obj.cur <= div && div <= obj.max){
-		CircularInt res {obj.min, obj.max};
 		for(int i = obj.min; i <= obj.max; i++)
 			if(div == obj.cur * i){
 				res.cur = i;
-				return res;
+				break;
 		}
 	}
 	else
 		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
+	return res;
 }
 
 CircularInt operator / (CircularInt const & a, CircularInt const & b){
+	CircularInt res {a.min, a.max};
 	if(a.min <= b.cur && b.cur <= a.cur){
-		CircularInt res {a.min, a.max};
 		for(int i = a.min; i <= a.max; i++)
 			if(a.cur == b.cur * i){
 				res.cur = i;
-				return res;
+			}
 		}
-        else
-            throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-	}
+    else
+        throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
+	return res;
 }
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 ostream& operator << (ostream& os, CircularInt const & circ){
