@@ -182,23 +182,25 @@ CircularInt operator * (CircularInt const & a, CircularInt const & b){
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
 CircularInt& CircularInt::operator /= (CircularInt const & div){
-	if(max > div.cur && div.cur < min)
+	if(max > div.cur && div.cur < min){
 		for(int i = min; i <= max; i++)
 			if(cur == div.cur * i){
 				this->cur = i;
 				return *this;
 		}
+	}
 	else
 		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div.cur)+"="+to_string(cur)+"\" ";
 }
 
 CircularInt& CircularInt::operator /= (int const div){
-	if(max > div && div < min)
+	if(max > div && div < min){
 		for(int i = min; i <= max; i++)
 			if(cur == div * i){
 				this->cur = i;
 				return *this;
 		}
+	}
 	else
 		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div)+"="+to_string(cur)+"\" ";
 
