@@ -3,10 +3,7 @@
 #include "CircularInt.hpp"
 using namespace std;
 
-    //change for commit
-
 //Constructors
-
     CircularInt::CircularInt(){
 		max = 12;
 		min = 1;
@@ -25,12 +22,6 @@ CircularInt::CircularInt(int min, int max){
 		cur = min;
 	}
 }
-
-// CircularInt::CircularInt(CircularInt& obj){
-// 		this->max = obj.max;
-// 		this->min = obj.min;
-// 		this->cur = obj.cur;
-// }
 
 int normalization(int cur, int dif, int min, int max){
 	cur += dif % (max - min + 1);
@@ -84,7 +75,7 @@ CircularInt& CircularInt::operator += (int const add){
 
 CircularInt operator + (int add, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-    res.cur = normalization(add, obj.cur, obj.min, obj.max);
+    res.cur = normalization(obj.cur, add, obj.min, obj.max);
 	return res;
 }
 

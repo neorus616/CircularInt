@@ -7,12 +7,11 @@ class CircularInt{
         int max;
         int min;
         int cur;
-        int normalization(int, int, int, int);
+        //int normalization(int, int, int, int);
        
     public:
         CircularInt();
         CircularInt(int, int);
-        // CircularInt::CircularInt(CircularInt& obj);
         //= = = = = = = = = = = = = = = =Assignment = = = = = = = = = = = = = = = = = =//
         CircularInt& operator = (CircularInt const &);
         //===============================Comparison====================================//

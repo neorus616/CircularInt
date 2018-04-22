@@ -48,11 +48,11 @@ TEST_CASE("testing the addition operators") {
 
 TEST_CASE("testing the cin function") {
     CircularInt cirin;
-    cout << "enter min and max values" << endl;
+    cout << "choose 3 press enter and choose 5 and press enter" << endl;
     cin >> cirin;
-    CHECK(cirin == 1);
+    CHECK(cirin == 3);
     cirin += 2;
-    CHECK(cirin == 1);
+    CHECK(cirin == 5);
 }
 // TEST_CASE("testing the addition functions"){
 // 	CHECK(hour == 8);
