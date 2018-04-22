@@ -13,19 +13,9 @@ using namespace std;
 		cur = 1;
 	}
 
-int normalization(int norm, int min, int max){
-	norm = norm % (max-min+1);
-	if(norm>max)
-		norm -= (max-min+1);
-	if(norm < min)
-		norm += (max-min+1);
-	return norm;
-}
-
-//Constructor
 CircularInt::CircularInt(int min, int max){
 	if(max < 0 || min < 0 || max < min){
-		cout << "Wrong values entered, defining default values 1-12" << endl;
+		cout << "Wrong values entered, Assigning default values 1-12" << endl;
 		this->max = 12;
 		this->min = 1;
 		cur = 1;
@@ -41,6 +31,15 @@ CircularInt::CircularInt(int min, int max){
 // 		this->min = obj.min;
 // 		this->cur = obj.cur;
 // }
+
+int normalization(int cur, int dif, int min, int max){
+	cur += dif % (max - min + 1);
+	if(cur > max)
+		cur -= (max - min + 1);
+	if(cur < min)
+		cur += (max - min + 1);
+	return cur;
+}
 //= = = = = = = = = = = = = = = = Assignment = = = = = = = = = = = = = = = = = //
 CircularInt& CircularInt::operator = (CircularInt const & obj){
 	this->max = obj.max;
@@ -74,18 +73,18 @@ bool operator != (CircularInt const & a, CircularInt const & b){
 }
 //+++++++++++++++++++++++++++++++++Addition++++++++++++++++++++++++++++++++++++//
 CircularInt& CircularInt::operator += (CircularInt const & add){
-	cur = normalization(cur+add.cur, min, max);
+	cur = normalization(cur, add.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator += (int const add){
-	cur = normalization(cur+add, min, max);
+	cur = normalization(cur, add, min, max);
 	return *this;
 }
 
 CircularInt operator + (int add, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-    res.cur = normalization(add+obj.cur, obj.min, obj.max);
+    res.cur = normalization(add, obj.cur, obj.min, obj.max);
 	return res;
 }
 
@@ -95,7 +94,7 @@ CircularInt operator + (CircularInt const & obj, int add){
 
 CircularInt operator + (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur+b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, b.cur, a.min, a.max);
 	return res;
 }
 
@@ -107,42 +106,40 @@ CircularInt& CircularInt::operator ++ (){
 const CircularInt CircularInt::operator ++ (int){
 	CircularInt res {min, max};
 	res.cur = cur;
-	cur = normalization(cur + 1, min, max);
+	cur = normalization(cur, 1, min, max);
 	return res;
 }
 
 //---------------------------------Subtraction---------------------------------//
 CircularInt& CircularInt::operator -= (CircularInt const & sub){
-	cur = normalization(cur-sub.cur, min, max);
+	cur = normalization(cur, -sub.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator -= (int const sub){
-	cur = normalization(cur-sub, min, max);
+	cur = normalization(cur, -sub, min, max);
 	return *this;
 }
 
 CircularInt operator - (int sub, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(res.cur-sub, res.min, res.max);
+	res.cur = normalization(res.cur, -sub, res.min, res.max);
 	return res;
 }
 
 CircularInt operator - (CircularInt const & obj, int sub){
-	return (sub - obj);
+	return sub - obj;
 }
 
 CircularInt operator - (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur-b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, -b.cur, a.min, a.max);
 	return res;
 }
 
 CircularInt CircularInt::operator - (){
 	CircularInt res {min, max};
-	res.cur = cur;
-	res.cur -= max;
-	res.cur *= -1;
+	res.cur = (-1) * normalization(cur, -max, min, max);
 	return res;
 }
 
@@ -154,23 +151,23 @@ CircularInt& CircularInt::operator -- (){
 const CircularInt CircularInt::operator -- (int){
 	CircularInt res {min, max};
 	res.cur = cur;
-	cur = normalization(cur - 1, min, max);
+	cur = normalization(cur, -1, min, max);
 	return res;
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cur = normalization(cur*mul.cur, min, max);
+	cur = normalization(cur, cur * mul.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cur = normalization(cur*mul, min, max);
+	cur = normalization(cur, cur * mul, min, max);
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(obj.cur*mul, obj.min, obj.max);
+	res.cur = normalization(obj.cur, obj.cur * mul, obj.min, obj.max);
 	return res;
 }
 
@@ -180,56 +177,69 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur*b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, a.cur * b.cur, a.min, a.max);
+	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
 CircularInt& CircularInt::operator /= (CircularInt const & div){
-	cur /= div.cur;
-	cur = cur % max;
-	if(cur < min)
-		cur += max;
-	return *this;
+	if(max > div.cur && div.cur < min)
+		for(int i = min; i <= max; i++)
+			if(cur == div.cur * i){
+				this->cur = i;
+				return *this;
+		}
+	else
+		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div.cur)+"="+to_string(cur)+"\" ";
 }
 
 CircularInt& CircularInt::operator /= (int const div){
-	cur /= div;
-	cur = cur % max;
-	if(cur < min)
-		cur += max;
-	return *this;
+	if(max > div && div < min)
+		for(int i = min; i <= max; i++)
+			if(cur == div * i){
+				this->cur = i;
+				return *this;
+		}
+	else
+		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div)+"="+to_string(cur)+"\" ";
+
 }
 
 CircularInt operator / ( CircularInt const & obj, int div){
-	CircularInt res {obj.min, obj.max};
-	res.cur = obj.cur;
-	if(res.cur % div == 0)
-		res /= div;
+	if(obj.min <= div && div <= obj.cur){
+		CircularInt res {obj.min, obj.max};
+		for(int i = obj.min; i <= obj.max; i++)
+			if(obj.cur == div * i){
+				res.cur = i;
+				return res;
+		}
+	}
 	else
 		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
-	return res;
 }
 
-CircularInt operator / (int x, CircularInt const & obj){
-	CircularInt res {obj.min, obj.max};
-	x = x % obj.max;
-	res.cur = x;
-	if(res.cur % obj.cur == 0)
-		res /= obj;
+CircularInt operator / (int div, CircularInt const & obj){
+	if(obj.cur <= div && div <= obj.max){
+		CircularInt res {obj.min, obj.max};
+		for(int i = obj.min; i <= obj.max; i++)
+			if(div == obj.cur * i){
+				res.cur = i;
+				return res;
+		}
+	}
 	else
-		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(x)+"="+to_string(obj.cur)+"\" ";
-	return res;
+		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
 }
 
 CircularInt operator / (CircularInt const & a, CircularInt const & b){
-	if(a.max != b.max || a.min != b.min)
-		throw "The objects have different cycles";
-	else {
+	if(a.min <= b.cur && b.cur <= a.cur){
 		CircularInt res {a.min, a.max};
-        if(a.cur % b.cur == 0)
-            res.cur = a.cur / b.cur;
+		for(int i = a.min; i <= a.max; i++)
+			if(a.cur == b.cur * i){
+				res.cur = i;
+				return res;
+		}
         else
             throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-		return res;
 	}
 }
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
@@ -238,8 +248,9 @@ ostream& operator << (ostream& os, CircularInt const & circ){
 }
 
 istream& operator >> (istream & is, CircularInt& circ){
-		cin >> circ.min >> circ.max;
+		is >> circ.min >> circ.max;
 		circ.cur = circ.min;
+		return is;
 	}
 
 	CircularInt::~CircularInt(){}

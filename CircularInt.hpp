@@ -7,6 +7,7 @@ class CircularInt{
         int max;
         int min;
         int cur;
+        int normalization(int, int, int, int);
        
     public:
         CircularInt();
