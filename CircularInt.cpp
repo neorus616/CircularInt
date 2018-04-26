@@ -114,12 +114,13 @@ CircularInt& CircularInt::operator -= (int const sub){
 
 CircularInt operator - (int sub, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(res.cur, -sub, res.min, res.max);
+	res += sub - res.min;
+	res.cur = normalization(res.cur, -obj.cur, res.min, res.max);
 	return res;
 }
 
 CircularInt operator - (CircularInt const & obj, int sub){
-	return sub - obj;
+	return ((-sub) + obj);
 }
 
 CircularInt operator - (CircularInt const & a, CircularInt const & b){
@@ -130,7 +131,7 @@ CircularInt operator - (CircularInt const & a, CircularInt const & b){
 
 CircularInt CircularInt::operator - (){
 	CircularInt res {min, max};
-	res.cur = (-1) * normalization(cur, -max, min, max);
+	res.cur = normalization(max, -cur, min, max);
 	return res;
 }
 
