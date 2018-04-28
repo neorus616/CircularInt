@@ -48,11 +48,11 @@ CircularInt& CircularInt::operator = (int const num){
 }
 //================================Comparison===================================//
 bool operator == (CircularInt const & obj, int const num){
-    return obj.cur == num;
+    return obj.cur == normalization(num, 0, obj.min, obj.max);
 }
 
 bool operator == (int const num, CircularInt const & obj){
-    return num == obj.cur;
+    return normalization(num, 0, obj.min, obj.max) == obj.cur;
 }
 
 bool operator == (CircularInt const & a, CircularInt const & b){
@@ -107,7 +107,7 @@ bool operator >= (int const num, CircularInt const & obj){
 }
 
 bool operator >= (CircularInt const & a, CircularInt const & b){
-	return a.cur >= b.cur;
+	return a.cur >= normalization(b.cur, 0, a.min, a.max);
 }
 
 bool operator > (CircularInt const & obj, int const num){
@@ -120,7 +120,7 @@ bool operator > (int const num, CircularInt const & obj){
 }
 
 bool operator > (CircularInt const & a, CircularInt const & b){
-	return a.cur > b.cur;
+	return a.cur > normalization(b.cur, 0, a.min, a.max);
 }
 //+++++++++++++++++++++++++++++++++Addition++++++++++++++++++++++++++++++++++++//
 CircularInt& CircularInt::operator += (CircularInt const & add){
