@@ -1,61 +1,28 @@
 #include <iostream>
-
-#include "CircularInt.hpp"
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include <cassert>
-
 using namespace std;
 
-    CircularInt hour {1, 12};
+#include "CircularInt.hpp"
 
-TEST_CASE("testing the assignment operators") {
-    CHECK(hour == 1);
-    hour = hour - 4;
-    CHECK(hour == 9);
-    hour = hour + 12; // should have no effect
-    CHECK(hour == 9);
-}
+int main() {
+	CircularInt hour {1, 12};                 // <hour is an integer between 1 and 12, like an hour on the clock>
+	cout << hour << endl;                     // 1
+	hour += 4;  cout << hour << endl;         // 5
+	(hour += 2)++;  cout << hour << endl;     // 8
+	hour += 18;   cout << hour << endl;       // 2   (18 hours after 8)
+	cout << -hour << endl;                    // 10  (2 hours before midnight)
+	hour = 1 - hour; cout << hour << endl;    // 11  (2 hours before 1)
+	cout << hour+hour << endl;                // 10 (11 hours after 11)
+	hour *= 2;   cout << hour << endl;        // 10 (11*2 = 11+11)
+	cout << hour/2 << endl;                   // TWO OPTIONS: 11 (since 11*2=10) or 5 (since 5*2=10 too).
 
-TEST_CASE("testing the addition operators") {
-    hour += 4;
-    CHECK(hour == 1);
-    hour = hour + 33;
-    CHECK(hour == 10);
-    hour++;
-    CHECK(hour == 11);
-    hour++;
-    CHECK(hour == 12);
-    hour++;
-    CHECK(hour == 1);
-    CircularInt tmpHour {1, 12};
-    tmpHour = 16 + tmpHour;
-    CHECK(tmpHour == 5);
-    hour += tmpHour;
-    CHECK(hour == 6);
-    hour = tmpHour + 7;
-    CHECK(hour == 12);
-    hour = tmpHour + hour;
-    CHECK(hour == 5);
-    tmpHour++;
-    hour = tmpHour++;
-    CHECK(hour == 6);
-    CHECK(tmpHour == 7);
-    hour = ++tmpHour;
-    CHECK(hour == 8);
-    CHECK(tmpHour == 8);
-}
+	try {
+		cout << hour/3;
+	} catch (const string& message) {
+		cout << message << endl;     // "There is no number x in {1,12} such that x*3=10"
+	}
 
-TEST_CASE("testing the cin function") {
-    CircularInt cirin;
-    cout << "choose 3 press enter and choose 5 and press enter" << endl;
-    cin >> cirin;
-    CHECK(cirin == 3);
-    cirin += 2;
-    CHECK(cirin == 5);
+	// RIDDLES (not for submission): 
+	//  * when is there exactly one answer to a/b?
+	//  * when are there two or more answers to a/b?
+	//	* when is there no answer to a/b?
 }
-// TEST_CASE("testing the addition functions"){
-// 	CHECK(hour == 8);
-// 	hour /= 11;
-// 	CHECK_THROWS_AS(hour/=11, std::exception);
-// }
