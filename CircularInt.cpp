@@ -206,12 +206,10 @@ CircularInt operator / ( CircularInt const & obj, int div){
 		for(int i = obj.min; i <= obj.max; i++)
 			if(obj.cur == div * i){
 				res.cur = i;
-				break;
+				return res;
 		}
 	}
-	else
 		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
-	return res;
 }
 
 CircularInt operator / (int div, CircularInt const & obj){
@@ -220,12 +218,10 @@ CircularInt operator / (int div, CircularInt const & obj){
 		for(int i = obj.min; i <= obj.max; i++)
 			if(div == obj.cur * i){
 				res.cur = i;
-				break;
+				return res;
 		}
 	}
-	else
-		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
-	return res;
+	throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
 }
 
 CircularInt operator / (CircularInt const & a, CircularInt const & b){
@@ -234,11 +230,10 @@ CircularInt operator / (CircularInt const & a, CircularInt const & b){
 		for(int i = a.min; i <= a.max; i++)
 			if(a.cur == b.cur * i){
 				res.cur = i;
+				return res;
 			}
 		}
-    else
         throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-	return res;
 }
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 ostream& operator << (ostream& os, CircularInt const & circ){
