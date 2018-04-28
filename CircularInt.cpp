@@ -72,11 +72,11 @@ bool operator != (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator <= (CircularInt const & obj, int const num){
-	return obj.cur <= num;
+	return obj.cur <= normalization(num, 0, obj.min, obj.max);
 }
 
 bool operator <= (int const num, CircularInt const & obj){
-	return num <= obj.cur;
+	return normalization(num, 0, obj.min, obj.max) <= obj.cur;
 
 }
 
@@ -85,11 +85,11 @@ bool operator <= (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator < (CircularInt const & obj, int const num){
-	return obj.cur < num;
+	return obj.cur < normalization(num, 0, obj.min, obj.max);
 }
 
 bool operator < (int const num, CircularInt const & obj){
-	return num < obj.cur;
+	return normalization(num, 0, obj.min, obj.max) < obj.cur;
 
 }
 
@@ -98,11 +98,11 @@ bool operator < (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator >= (CircularInt const & obj, int const num){
-	return obj.cur >= num;
+	return obj.cur >= normalization(num, 0, obj.min, obj.max);
 }
 
 bool operator >= (int const num, CircularInt const & obj){
-	return num >= obj.cur;
+	return normalization(num, 0, obj.min, obj.max) >= obj.cur;
 
 }
 
@@ -111,11 +111,11 @@ bool operator >= (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator > (CircularInt const & obj, int const num){
-	return obj.cur > num;
+	return obj.cur > normalization(num, 0, obj.min, obj.max);
 }
 
 bool operator > (int const num, CircularInt const & obj){
-	return num > obj.cur;
+	return normalization(num, 0, obj.min, obj.max) > obj.cur;
 
 }
 
