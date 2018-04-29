@@ -205,12 +205,22 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
+	cout << "mul: " << mul << endl;
+	cout << "min: " << min << endl;
+	cout << "max: " << max << endl;
+	cout << "cur: " << cur << endl;
 	cur = normalization(0 , cur * mul.cur, min, max);
+	cout << "new cur: " << cur << endl;
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
+		cout << "mul: " << mul << endl;
+	cout << "min: " << min << endl;
+	cout << "max: " << max << endl;
+	cout << "cur: " << cur << endl;
 	cur = normalization(0, cur * mul, min, max);
+	cout << "new cur: " << cur << endl;
 	return *this;
 }
 
