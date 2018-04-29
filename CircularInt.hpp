@@ -7,7 +7,7 @@ class CircularInt{
         int max;
         int min;
         int cur;
-        int normalization(int, int, int, int);
+        //int normalization(int, int, int, int);
        
     public:
         CircularInt();
@@ -15,7 +15,6 @@ class CircularInt{
         //= = = = = = = = = = = = = = = =Assignment = = = = = = = = = = = = = = = = = =//
         CircularInt& operator = (CircularInt const &);
         CircularInt& operator = (int const);
-
         //===============================Comparison====================================//
         friend bool operator == (CircularInt const &, int const);
         friend bool operator == (int const, CircularInt const &);

@@ -1,20 +1,22 @@
 #include <iostream>
 #include <string>
 #include "CircularInt.hpp"
+#define MAX 12
+#define MIN 1
+
 using namespace std;
 
 //Constructors
     CircularInt::CircularInt(){
-		max = 12;
-		min = 1;
-		cur = 1;
+		max = MAX;
+		min = MIN;
+		cur = MIN;
 	}
 
 CircularInt::CircularInt(int min, int max){
-	if(max < 0 || min < 0 || max < min){
-		cout << "Wrong values entered, Assigning default values 1-12" << endl;
-		this->max = 12;
-		this->min = 1;
+	if(max < min){
+		this->max = min;
+		this->min = max;
 		cur = 1;
 	} else{
 		this->max = max;
@@ -38,13 +40,19 @@ CircularInt& CircularInt::operator = (CircularInt const & obj){
 	this->cur = obj.cur;
 	return *this;
 }
+CircularInt& CircularInt::operator = (int const num){
+	this->max = MAX;
+	this->min = MIN;
+	this->cur = normalization(num, 0, MIN, MAX);
+	return *this;
+}
 //================================Comparison===================================//
 bool operator == (CircularInt const & obj, int const num){
     return obj.cur == normalization(obj.min - 1, num, obj.min, obj.max);
 }
 
 bool operator == (int const num, CircularInt const & obj){
-    return obj == num;
+    return normalization(obj.min - 1, num, obj.min, obj.max) == obj.cur;
 }
 
 bool operator == (CircularInt const & a, CircularInt const & b){
@@ -90,7 +98,7 @@ bool operator < (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator >= (CircularInt const & obj, int const num){
-	return obj.cur >= normalization(obj.min -1, num, obj.min, obj.max);
+	return obj.cur >= normalization(obj.min - 1, num, obj.min, obj.max);
 }
 
 bool operator >= (int const num, CircularInt const & obj){
@@ -108,6 +116,7 @@ bool operator > (CircularInt const & obj, int const num){
 
 bool operator > (int const num, CircularInt const & obj){
 	return normalization(0, num, obj.min, obj.max) > obj.cur;
+
 }
 
 bool operator > (CircularInt const & a, CircularInt const & b){
@@ -165,8 +174,7 @@ CircularInt& CircularInt::operator -= (int const sub){
 
 CircularInt operator - (int sub, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res += sub - res.min;
-	res.cur = normalization(res.cur, -obj.cur, res.min, res.max);
+	res.cur = normalization(normalization(sub, 0, res.min, res.max), -obj.cur, res.min, res.max);
 	return res;
 }
 
@@ -182,7 +190,7 @@ CircularInt operator - (CircularInt const & a, CircularInt const & b){
 
 CircularInt CircularInt::operator - (){
 	CircularInt res {min, max};
-	res.cur = normalization(max, -cur, min, max);
+	res.cur = normalization(max - cur, 0, min, max);
 	return res;
 }
 
@@ -199,18 +207,18 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cur = normalization(cur, cur * mul.cur, min, max);
+	cur = normalization(cur * mul.cur, 0, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cur = normalization(cur, cur * mul, min, max);
+	cur = normalization(cur * mul, 0, min, max);
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(obj.cur, obj.cur * mul, obj.min, obj.max);
+	res.cur = normalization(obj.cur * mul, 0, obj.min, obj.max);
 	return res;
 }
 
@@ -220,7 +228,7 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur, a.cur * b.cur, a.min, a.max);
+	res.cur = normalization(a.cur * b.cur, 0, a.min, a.max);
 	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
@@ -229,13 +237,10 @@ CircularInt& CircularInt::operator /= (CircularInt const & div){
 		for(int i = min; i <= max; i++)
 			if(cur == div.cur * i){
 				this->cur = i;
-				break;
+				return *this;
 		}
 	}
-	else
-		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div.cur)+"="+to_string(cur)+"\" ";
-	return *this;
-
+	throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div.cur)+"="+to_string(cur)+"\" ";
 }
 
 CircularInt& CircularInt::operator /= (int const div){
@@ -243,13 +248,11 @@ CircularInt& CircularInt::operator /= (int const div){
 		for(int i = min; i <= max; i++)
 			if(cur == div * i){
 				this->cur = i;
-				break;
+				return *this;
 		}
 	}
 	else
 		throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div)+"="+to_string(cur)+"\" ";
-	return *this;
-
 }
 
 CircularInt operator / ( CircularInt const & obj, int div){
@@ -258,12 +261,10 @@ CircularInt operator / ( CircularInt const & obj, int div){
 		for(int i = obj.min; i <= obj.max; i++)
 			if(obj.cur == div * i){
 				res.cur = i;
-				break;
+				return res;
 		}
 	}
-	else
 		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
-	return res;
 }
 
 CircularInt operator / (int div, CircularInt const & obj){
@@ -272,12 +273,10 @@ CircularInt operator / (int div, CircularInt const & obj){
 		for(int i = obj.min; i <= obj.max; i++)
 			if(div == obj.cur * i){
 				res.cur = i;
-				break;
+				return res;
 		}
 	}
-	else
-		throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
-	return res;
+	throw "\"There is no number x in {"+to_string(obj.min)+","+to_string(obj.max)+"} such that x*"+to_string(div)+"="+to_string(obj.cur)+"\" ";
 }
 
 CircularInt operator / (CircularInt const & a, CircularInt const & b){
@@ -286,11 +285,10 @@ CircularInt operator / (CircularInt const & a, CircularInt const & b){
 		for(int i = a.min; i <= a.max; i++)
 			if(a.cur == b.cur * i){
 				res.cur = i;
+				return res;
 			}
 		}
-    else
         throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
-	return res;
 }
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 ostream& operator << (ostream& os, CircularInt const & circ){
