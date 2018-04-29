@@ -305,8 +305,8 @@ ostream& operator << (ostream& os, CircularInt const & circ){
 }
 
 istream& operator >> (istream & is, CircularInt& circ){
-		is >> circ.min >> circ.max;
-		circ.cur = circ.min;
+		is >> circ.cur;
+		normalization(circ.min - 1, circ.cur, circ.min, circ.max);
 		return is;
 	}
 
