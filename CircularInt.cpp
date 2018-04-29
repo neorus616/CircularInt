@@ -25,8 +25,8 @@ CircularInt::CircularInt(int min, int max){
 	}
 }
 
-int normalization(int cur, int min, int max){
-	cur = cur % (max - min + 1);
+int normalization(int cur, int dif, int min, int max){
+	cur += dif % (max - min + 1);
 	if(cur > max)
 		cur -= (max - min + 1);
 	if(cur < min)
@@ -43,16 +43,16 @@ CircularInt& CircularInt::operator = (CircularInt const & obj){
 CircularInt& CircularInt::operator = (int const num){
 	this->max = MAX;
 	this->min = MIN;
-	this->cur = normalization(num, MIN, MAX);
+	this->cur = normalization(num, 0, MIN, MAX);
 	return *this;
 }
 //================================Comparison===================================//
 bool operator == (CircularInt const & obj, int const num){
-    return obj.cur == normalization(num, obj.min, obj.max);
+    return obj.cur == normalization(obj.min, num, obj.min, obj.max);
 }
 
 bool operator == (int const num, CircularInt const & obj){
-    return normalization(num, obj.min, obj.max) == obj.cur;
+    return normalization(obj.min, num, obj.min, obj.max) == obj.cur;
 }
 
 bool operator == (CircularInt const & a, CircularInt const & b){
@@ -72,11 +72,11 @@ bool operator != (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator <= (CircularInt const & obj, int const num){
-	return obj.cur <= normalization(num, obj.min, obj.max);
+	return obj.cur <= normalization(obj.min, num, obj.min, obj.max);
 }
 
 bool operator <= (int const num, CircularInt const & obj){
-	return normalization(num, obj.min, obj.max) <= obj.cur;
+	return normalization(obj.min, num, obj.min, obj.max) <= obj.cur;
 
 }
 
@@ -85,11 +85,11 @@ bool operator <= (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator < (CircularInt const & obj, int const num){
-	return obj.cur < normalization(num, obj.min, obj.max);
+	return obj.cur < normalization(obj.min, num, obj.min, obj.max);
 }
 
 bool operator < (int const num, CircularInt const & obj){
-	return normalization(num, obj.min, obj.max) < obj.cur;
+	return normalization(obj.min, num, obj.min, obj.max) < obj.cur;
 
 }
 
@@ -98,43 +98,43 @@ bool operator < (CircularInt const & a, CircularInt const & b){
 }
 
 bool operator >= (CircularInt const & obj, int const num){
-	return obj.cur >= normalization(num, obj.min, obj.max);
+	return obj.cur >= normalization(obj.min, num, obj.min, obj.max);
 }
 
 bool operator >= (int const num, CircularInt const & obj){
-	return normalization(num, obj.min, obj.max) >= obj.cur;
+	return normalization(obj.min, num, obj.min, obj.max) >= obj.cur;
 
 }
 
 bool operator >= (CircularInt const & a, CircularInt const & b){
-	return a.cur >= normalization(b.cur, a.min, a.max);
+	return a.cur >= normalization(a.min, b.cur, a.min, a.max);
 }
 
 bool operator > (CircularInt const & obj, int const num){
-	return obj.cur > normalization(num, obj.min, obj.max);
+	return obj.cur > normalization(obj.min, num, obj.min, obj.max);
 }
 
 bool operator > (int const num, CircularInt const & obj){
-	return normalization(num, obj.min, obj.max) > obj.cur;
+	return normalization(0, num, obj.min, obj.max) > obj.cur;
 }
 
 bool operator > (CircularInt const & a, CircularInt const & b){
-	return a.cur > normalization(b.cur, a.min, a.max);
+	return a.cur > normalization(a.min, b.cur, a.min, a.max);
 }
 //+++++++++++++++++++++++++++++++++Addition++++++++++++++++++++++++++++++++++++//
 CircularInt& CircularInt::operator += (CircularInt const & add){
-	cur = normalization(cur + add.cur, min, max);
+	cur = normalization(cur, add.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator += (int const add){
-	cur = normalization(cur + add, min, max);
+	cur = normalization(cur, add, min, max);
 	return *this;
 }
 
 CircularInt operator + (int add, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-    res.cur = normalization(obj.cur + add, obj.min, obj.max);
+    res.cur = normalization(obj.cur, add, obj.min, obj.max);
 	return res;
 }
 
@@ -144,7 +144,7 @@ CircularInt operator + (CircularInt const & obj, int add){
 
 CircularInt operator + (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur + b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, b.cur, a.min, a.max);
 	return res;
 }
 
@@ -156,24 +156,24 @@ CircularInt& CircularInt::operator ++ (){
 const CircularInt CircularInt::operator ++ (int){
 	CircularInt res {min, max};
 	res.cur = cur;
-	cur = normalization(cur + 1, min, max);
+	cur = normalization(cur, 1, min, max);
 	return res;
 }
 
 //---------------------------------Subtraction---------------------------------//
 CircularInt& CircularInt::operator -= (CircularInt const & sub){
-	cur = normalization(cur - sub.cur, min, max);
+	cur = normalization(cur, -sub.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator -= (int const sub){
-	cur = normalization(cur - sub, min, max);
+	cur = normalization(cur, -sub, min, max);
 	return *this;
 }
 
 CircularInt operator - (int sub, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(normalization(sub, res.min, res.max) - obj.cur, res.min, res.max);
+	res.cur = normalization(normalization(sub, 0, res.min, res.max), -obj.cur, res.min, res.max);
 	return res;
 }
 
@@ -183,13 +183,13 @@ CircularInt operator - (CircularInt const & obj, int sub){
 
 CircularInt operator - (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur - b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, -b.cur, a.min, a.max);
 	return res;
 }
 
 CircularInt CircularInt::operator - (){
 	CircularInt res {min, max};
-	res.cur = normalization(max - cur, min, max);
+	res.cur = normalization(max - cur, 0, min, max);
 	return res;
 }
 
@@ -201,23 +201,23 @@ CircularInt& CircularInt::operator -- (){
 const CircularInt CircularInt::operator -- (int){
 	CircularInt res {min, max};
 	res.cur = cur;
-	cur = normalization(cur - 1, min, max);
+	cur = normalization(cur, -1, min, max);
 	return res;
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cur = normalization(cur * mul.cur, min, max);
+	cur = normalization(cur * mul.cur, 0, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cur = normalization(cur * mul, min, max);
+	cur = normalization(cur * mul, 0, min, max);
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(obj.cur * mul, obj.min, obj.max);
+	res.cur = normalization(obj.cur * mul, 0, obj.min, obj.max);
 	return res;
 }
 
@@ -227,7 +227,7 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.cur * b.cur, a.min, a.max);
+	res.cur = normalization(a.cur * b.cur, 0, a.min, a.max);
 	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
