@@ -190,7 +190,7 @@ CircularInt operator - (CircularInt const & a, CircularInt const & b){
 
 CircularInt CircularInt::operator - (){
 	CircularInt res {min, max};
-	res.cur = normalization(max - cur, 0, min, max);
+	res.cur = normalization(max, -cur, min, max);
 	return res;
 }
 
@@ -207,18 +207,18 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cur = normalization(0, cur * mul.cur, min, max);
+	cur = normalization(min - 1, cur * mul.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cur = normalization(0, cur * mul, min, max);
+	cur = normalization(min - 1, cur * mul, min, max);
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(0, obj.cur * mul, obj.min, obj.max);
+	res.cur = normalization(obj.min - 1, obj.cur * mul, obj.min, obj.max);
 	return res;
 }
 
@@ -228,7 +228,7 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(0, a.cur * b.cur, a.min, a.max);
+	res.cur = normalization(a.min - 1, a.cur * b.cur, a.min, a.max);
 	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
@@ -252,6 +252,11 @@ CircularInt& CircularInt::operator /= (int const div){
 		}
 	}
 	throw "\"There is no number x in {"+to_string(min)+","+to_string(max)+"} such that x*"+to_string(div)+"="+to_string(cur)+"\" ";
+}
+
+CircularInt& CircularInt::operator %= (const int div){
+	cur = normalization(min - 1, cur % div, min, max);
+	return *this;
 }
 
 CircularInt operator / ( CircularInt const & obj, int div){
@@ -289,6 +294,13 @@ CircularInt operator / (CircularInt const & a, CircularInt const & b){
 		}
     throw "\"There is no number x in {"+to_string(a.min)+","+to_string(a.max)+"} such that x*"+to_string(a.cur)+"="+to_string(b.cur)+"\" ";
 }
+
+const CircularInt operator % (const CircularInt& obj , const int num){
+	CircularInt res {obj.min, obj.max};
+	res.cur = normalization(0, obj.cur % num, obj.min, obj.max);
+	return res;
+}
+
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
 ostream& operator << (ostream& os, CircularInt const & circ){
 	return os << circ.cur;

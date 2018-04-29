@@ -60,9 +60,11 @@ class CircularInt{
         //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
         CircularInt& operator /= (int);
         CircularInt& operator /= (CircularInt const &);
+        CircularInt& operator %= (const int other);
         friend CircularInt operator / (int, CircularInt const &);
         friend CircularInt operator / (CircularInt const &, int);
         friend CircularInt operator / (CircularInt const &, CircularInt const &);
+        friend const CircularInt operator % (const CircularInt& c , const int num);
         //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Stream<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<//
         friend ostream& operator << (ostream &, CircularInt const &);
         friend istream& operator >> (istream & ,CircularInt &);
