@@ -205,30 +205,18 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cout << "this *= CircularInt" << endl;
-	cout << "mul " << mul.cur << endl;
-	cout << "this.cur " << cur << endl;
-	cout << "this.min " << min << endl;
-	cout << "this.max " << max << endl;
 	cur = normalization(0 , cur * mul.cur, min, max);
-	cout << "new.cur " << cur << endl;
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cout << "this *= int" << endl;
-	cout << "mul " << mul << endl;
-	cout << "this.cur " << cur << endl;
-	cout << "this.min " << min << endl;
-	cout << "this.max " << max << endl;
 	cur = normalization(0, cur * mul, min, max);
-	cout << "new.cur " << cur << endl;
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(obj.min - 1, obj.cur * mul, obj.min, obj.max);
+	res.cur = normalization(0, obj.cur * mul, obj.min, obj.max);
 	return res;
 }
 
@@ -238,7 +226,7 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.min - 1, a.cur * b.cur, a.min, a.max);
+	res.cur = normalization(0, a.cur * b.cur, a.min, a.max);
 	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
