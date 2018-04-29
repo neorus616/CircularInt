@@ -205,11 +205,21 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
+	cout << "this *= CircularInt" << endl;
+	cout << "mul" << mul.cur << endl;
+	cout << "this.cur " << cur << endl;
+	cout << "this.min " << min << endl;
+	cout << "this.max " << max << endl;
 	cur = normalization(min - 1, cur * mul.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
+	cout << "this *= int" << endl;
+	cout << "mul" << mul << endl;
+	cout << "this.cur " << cur << endl;
+	cout << "this.min " << min << endl;
+	cout << "this.max " << max << endl;
 	cur = normalization(min - 1, cur * mul, min, max);
 	return *this;
 }
@@ -305,13 +315,9 @@ ostream& operator << (ostream& os, CircularInt const & circ){
 }
 
 istream& operator >> (istream & is, CircularInt& circ){
-		is >> circ.cur;
-		cout << "input: " << circ.cur <<endl;
-		cout << "min: " << circ.min <<endl;
-		cout << "max: " << circ.max <<endl;
-		circ.cur = normalization(circ.min - 1, circ.cur, circ.min, circ.max);
-		cout << "normalization: " << circ.cur <<endl;
-		return is;
-	}
+	is >> circ.cur;
+	circ.cur = normalization(circ.min - 1, circ.cur, circ.min, circ.max);
+	return is;
+}
 
 	CircularInt::~CircularInt(){}
