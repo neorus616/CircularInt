@@ -206,7 +206,7 @@ const CircularInt CircularInt::operator -- (int){
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
 	cout << "this *= CircularInt" << endl;
-	cout << "mul" << mul.cur << endl;
+	cout << "mul " << mul.cur << endl;
 	cout << "this.cur " << cur << endl;
 	cout << "this.min " << min << endl;
 	cout << "this.max " << max << endl;
@@ -216,7 +216,7 @@ CircularInt& CircularInt::operator *= (CircularInt const & mul){
 
 CircularInt& CircularInt::operator *= (int const mul){
 	cout << "this *= int" << endl;
-	cout << "mul" << mul << endl;
+	cout << "mul " << mul << endl;
 	cout << "this.cur " << cur << endl;
 	cout << "this.min " << min << endl;
 	cout << "this.max " << max << endl;
