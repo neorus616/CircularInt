@@ -43,7 +43,7 @@ CircularInt& CircularInt::operator = (CircularInt const & obj){
 CircularInt& CircularInt::operator = (int const num){
 	this->max = MAX;
 	this->min = MIN;
-	this->cur = normalization(num, 0, MIN, MAX);
+	this->cur = normalization(0, num, MIN, MAX);
 	return *this;
 }
 //================================Comparison===================================//
