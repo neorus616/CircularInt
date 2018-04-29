@@ -207,18 +207,18 @@ const CircularInt CircularInt::operator -- (int){
 }
 //*******************************Multiplication********************************//
 CircularInt& CircularInt::operator *= (CircularInt const & mul){
-	cur = normalization(min - 1, cur * mul.cur, min, max);
+	cur = normalization(cur, cur * mul.cur, min, max);
 	return *this;
 }
 
 CircularInt& CircularInt::operator *= (int const mul){
-	cur = normalization(min - 1, cur * mul, min, max);
+	cur = normalization(cur, cur * mul, min, max);
 	return *this;
 }
 
 CircularInt operator * (int mul, CircularInt const & obj){
 	CircularInt res {obj.min, obj.max};
-	res.cur = normalization(obj.min - 1, obj.cur * mul, obj.min, obj.max);
+	res.cur = normalization(obj.cur, obj.cur * mul, obj.min, obj.max);
 	return res;
 }
 
@@ -228,7 +228,7 @@ CircularInt operator * (CircularInt const & obj, int mul){
 
 CircularInt operator * (CircularInt const & a, CircularInt const & b){
 	CircularInt res {a.min, a.max};
-	res.cur = normalization(a.min - 1, a.cur * b.cur, a.min, a.max);
+	res.cur = normalization(a.cur, a.cur * b.cur, a.min, a.max);
 	return res;
 }
 //:::::::::::::::::::::::::::::::::Division:::::::::::::::::::::::::::::::::::://
