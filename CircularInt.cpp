@@ -306,6 +306,7 @@ ostream& operator << (ostream& os, CircularInt const & circ){
 
 istream& operator >> (istream & is, CircularInt& circ){
 		is >> circ.cur;
+		cout << "fuck u kostia" <<endl;
 		normalization(circ.min - 1, circ.cur, circ.min, circ.max);
 		return is;
 	}
